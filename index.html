@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Music App </title>
+
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        referrerpolicy="no-referrer" rel="stylesheet" />
+
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="data:," rel="icon">
+
+
+
+</head>
+
+<body>
+
+    <div id="error-popup"></div>
+    <div id="success-popup"></div>
+
+
+    <header>
+
+        <div class="nav-bar">
+
+            <div class="nav-logo">
+                <div class="logo"></div>
+            </div>
+
+            <div class="nav-home">
+
+                <div class="home-logo" id="homePage">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+
+                <p class="home-text">Home</p>
+            </div>
+
+            <div class="nav-search">
+
+                <input class="search-input" id="search-input" placeholder=" Search What do you want to play?">
+                <div class="search-icon" id="search-song">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+            </div>
+
+            <div class="nav-AppName">
+
+                <p class="app-name"> Your Music , Your Vibe</p>
+
+            </div>
+
+            <div class="nav-authorized">
+
+                <button class="signup-button" id="signup-btn">Signup</button>
+
+                <button class="login-button" id="login-btn">Login</button>
+
+            </div>
+
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <div class="nav-playlist">
+
+            <h1 style="margin-left: 7rem; font-family: sans-serif; color: aliceblue;">Your PlayList</h1>
+
+            <div class="nav-playlist-button">
+
+                <button id="create-playlist-btn-1">create private playlist</button>
+                <button id="create-playlist-btn-2">create collab playlist</button>
+
+
+            </div>
+
+            <div class="nav-view-playlist-button">
+
+                <button id="view-playlist-btn-1"> view priavte playlist</button>
+                <button id="view-playlist-btn-2"> view collab playlist</button>
+
+            </div>
+
+            <div class="nav-playlist-container">
+
+                <h2 style="color: aliceblue; font-family: 'Times New Roman', Times, serif;">All playlists</h2>
+
+                <div class="nav-view-playlist">
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="flex:1; display:flex; flex-direction:column;">
+
+            <div class="nav-trending-songs">
+
+                <h1 id="heading-all-trending-songs" style="font-weight: bolder; color: white;">All Trending Songs</h1>
+
+                <div class="join-code-section">
+                    <h3 style="padding-right: 10%; font-size: small;">Join Collaborative Playlist</h3>
+                    <input class="join-code-input" id="join-code-input" placeholder="Enter playlist code" type="text">
+                    <button class="join-code-btn" id="join-code">Join</button>
+                    <div class="error-message" id="join-code-error"></div>
+                    <div class="success-message" id="join-code-success"></div>
+                </div>
+
+            </div>
+
+            <hr>
+
+
+            <div class="songs-container" id="songs-container">
+                <div class="loading" id="loading-songs">Loading songs...</div>
+            </div>
+
+
+            <div class="playbar">
+
+                <audio id="audioPlayer" type="audio/mpeg"></audio>
+
+                <span class="time-display current" id="currentTime">0:00</span>
+                <div class="seekbar-container">
+
+                    <div id="seekbar"></div>
+                    <div id="circle"></div>
+                </div>
+
+                <span class="time-display current" id="totalTime">0:00</span>
+                <div class="song-info"></div>
+
+                <div class="songsbuttons">
+
+
+                    <i class="fa-solid fa-backward" id="playPrevBtn"></i>
+                    <i class="fa-solid fa-play" id="playBtn"></i>
+                    <i class="fa-solid fa-pause" id="pauseBtn" style="display: none;"></i>
+                    <i class="fa-solid fa-forward" id="playNextBtn"></i>
+
+                    <div class="volume-control">
+                        <i class="fa-solid fa-volume-low"></i>
+                        <input id="volumeSlider" max="1" min="0" step="0.01" type="range" value="1">
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="model" id="signup-model">
+
+        <div class="model-content">
+            <button class="close-modal" data-modal="signup-model">&times;</button>
+
+            <h2>Signup</h2>
+
+            <form>
+
+                <input placeholder="name" required type="text"><br><br>
+                <input placeholder="Email" required type="email"><br><br>
+                <input placeholder="Password" required type="password"><br><br>
+                <button type="submit">submit</button>
+                <div class="error-message" id="signup-error"></div>
+                <div class="success-message" id="signup-success"></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <div class="model" id="login-model">
+
+        <div class="model-content">
+
+            <button class="close-modal" data-modal="login-model">&times;</button>
+
+            <h2>Login</h2>
+
+
+            <form>
+
+                <input placeholder="Email" required type="email"><br><br>
+                <input placeholder="Password" required type="password"><br><br>
+                <button type="submit">Login</button>
+
+                <div class="error-message" id="login-error"></div>
+                <div class="success-message" id="login-success"></div>
+
+            </form>
+            <br>
+
+            <button class="oauth-button" id="google-login">Sign in with Google</button> <br> <br>
+
+            <a href="" id="forgotPassword">forgot password</a>
+
+        </div>
+
+    </div>
+
+    <!-- otp model -->
+
+    <div class="model" id="otp-model">
+        <div class="model-content">
+
+            <button class="close-modal" data-modal="otp-model">&times;</button>
+
+
+            <h2>Enter OTP</h2>
+            <form id="otp-form">
+                <input type="text" placeholder="Enter OTP" required>
+                <button type="submit">Verify & Signup</button>
+                <div class="error-message" id="otp-error"></div>
+            </form>
+            <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <button id="resend-otp-btn">Resend OTP</button>
+                <span id="resend-timer">02:00</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Forgot Password Modal -->
+    <div class="model" id="forgot-password-model">
+        <div class="model-content">
+            <button class="close-modal" data-modal="forgot-password-model">&times;</button>
+            <h2>Forgot Password</h2>
+
+            <form id="forgot-password-form">
+                <input id="forgot-email" placeholder="Email" required type="email"><br><br>
+                <input id="forgot-password" placeholder="New Password" required type="password"><br><br>
+
+                <!-- OTP Row -->
+                <div class="otp-row">
+                    <input id="forgot-otp" placeholder="OTP" required type="text" class="otp-input">
+                    <div class="otp-action">
+                        <button id="send-forgot-otp-btn" type="button">Send OTP</button>
+                        <span id="forgot-otp-timer">02:00</span>
+                    </div>
+                </div>
+
+                <br>
+                <button type="submit">Submit</button>
+
+                <div class="error-message" id="forgot-password-error"></div>
+                <div class="success-message" id="forgot-password-success"></div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- create playlist -->
+
+
+    <div class="model" id="create-private-playlist-model">
+
+        <div class="model-content">
+
+            <button class="close-modal" data-modal="create-private-playlist-model">&times;</button>
+
+            <h2>Private Playlist</h2>
+
+            <form>
+
+                <input placeholder="playlist name" required type="text"><br><br>
+
+                <button type="submit">Create private playlist</button>
+
+                <div class="error-message" id="private-playlist-error"></div>
+                <div class="success-message" id="private-playlist-success"></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <div class="model" id="create-collab-playlist-model">
+
+        <div class="model-content">
+
+            <button class="close-modal" data-modal="create-collab-playlist-model">&times;</button>
+
+            <h2>Collab Playlist</h2>
+
+            <form>
+
+                <input placeholder="playlist name" required type="text"><br><br>
+
+                <button type="submit">Create collab playlist</button>
+
+                <div class="error-message" id="collab-playlist-error"></div>
+                <div class="success-message" id="collab-playlist-success"></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- add song to playlist modal -->
+
+    <div id="addSongModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
+
+        <div
+            style="background:#1e1e1e; color:white; padding:20px; border-radius:10px; width:680px; max-height:80%; overflow:auto;">
+            <h3>Add Songs to Playlist</h3>
+            <input id="songSearchInput" placeholder="Search songs..."
+                style="width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:none; outline:none;"
+                type="text" />
+
+            <div id="songResults" style="max-height:300px; overflow-y:auto;"></div>
+
+            <button id="closeModalBtn"
+                style="margin-top:10px; padding:8px 12px; background:red; color:white; border:none; border-radius:5px; cursor:pointer;">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script type="module" src="js/music.js"></script>
+    <script type="module" src="js/playlist.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+
+
+</body>
+
+
+</html>
